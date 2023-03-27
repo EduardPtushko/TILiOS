@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2326461F29D19B8E006FF18E /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326461E29D19B8E006FF18E /* DataParser.swift */; };
 		23E1438329D04CA800F134AD /* TILiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1438229D04CA800F134AD /* TILiOSApp.swift */; };
 		23E1438529D04CA800F134AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1438429D04CA800F134AD /* ContentView.swift */; };
 		23E1438729D04CAA00F134AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23E1438629D04CAA00F134AD /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		23E143D129D0632E00F134AD /* AcronymRequestMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E143D029D0632E00F134AD /* AcronymRequestMock.swift */; };
 		23E143D329D0724E00F134AD /* AcronymsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 23E143D229D0724E00F134AD /* AcronymsMock.json */; };
 		23E143D529D072C700F134AD /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E143D429D072C700F134AD /* RequestManagerTests.swift */; };
+		23E143D729D0AE5000F134AD /* AcronymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E143D629D0AE5000F134AD /* AcronymDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2326461E29D19B8E006FF18E /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		23E1437F29D04CA800F134AD /* TILiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TILiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23E1438229D04CA800F134AD /* TILiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TILiOSApp.swift; sourceTree = "<group>"; };
 		23E1438429D04CA800F134AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		23E143D029D0632E00F134AD /* AcronymRequestMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcronymRequestMock.swift; sourceTree = "<group>"; };
 		23E143D229D0724E00F134AD /* AcronymsMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AcronymsMock.json; sourceTree = "<group>"; };
 		23E143D429D072C700F134AD /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
+		23E143D629D0AE5000F134AD /* AcronymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcronymDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2326461D29D19B74006FF18E /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				2326461E29D19B8E006FF18E /* DataParser.swift */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
 		23E1437629D04CA800F134AD = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +149,7 @@
 		23E1439229D04CE300F134AD /* api */ = {
 			isa = PBXGroup;
 			children = (
+				2326461D29D19B74006FF18E /* parser */,
 				23E1439329D04CE300F134AD /* network */,
 				23E1439629D04CE300F134AD /* request */,
 			);
@@ -181,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				23E143B929D05B4D00F134AD /* CreateAcronymView.swift */,
+				23E143D629D0AE5000F134AD /* AcronymDetail.swift */,
 				23E143AD29D04D0E00F134AD /* AcronymsView.swift */,
 			);
 			path = views;
@@ -388,6 +402,7 @@
 			files = (
 				23E143AE29D04D0E00F134AD /* AcronymsView.swift in Sources */,
 				23E143B429D04F5600F134AD /* Acronym.swift in Sources */,
+				2326461F29D19B8E006FF18E /* DataParser.swift in Sources */,
 				23E1439B29D04CE300F134AD /* APIManager.swift in Sources */,
 				23E1439A29D04CE300F134AD /* RequestManager.swift in Sources */,
 				23E1438529D04CA800F134AD /* ContentView.swift in Sources */,
@@ -396,6 +411,7 @@
 				23E1439D29D04CE300F134AD /* AcronymsRequest.swift in Sources */,
 				23E1438329D04CA800F134AD /* TILiOSApp.swift in Sources */,
 				23E1439C29D04CE300F134AD /* RequestProtocol.swift in Sources */,
+				23E143D729D0AE5000F134AD /* AcronymDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,6 @@ protocol APIManagerProtocol {
     func perform(_ request: RequestProtocol, authToken: String) async throws -> Data
 }
 
-
 class APIManager: APIManagerProtocol {
     private let urlSession: URLSession
     

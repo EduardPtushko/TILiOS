@@ -9,21 +9,6 @@ import Foundation
 
 enum AcronymsRequest: RequestProtocol {
     case getAcronyms
-    
-    var path: String {
-        "/api/acronyms"
-    }
-    
-    var requestType: RequestType {
-        .GET
-    }
-    
-    var addAuthorizationToken: Bool {
-        false
-    }
-}
-
-enum CreateAcronymRequest: RequestProtocol {
     case createAcronym(short: String, long: String)
     
     var path: String {
@@ -31,7 +16,12 @@ enum CreateAcronymRequest: RequestProtocol {
     }
     
     var requestType: RequestType {
-        .POST
+        switch self {
+            case .getAcronyms:
+                return  .GET
+            case .createAcronym(_, _):
+                return  .POST
+        }
     }
     
     var addAuthorizationToken: Bool {
@@ -42,6 +32,53 @@ enum CreateAcronymRequest: RequestProtocol {
         switch self {
             case let .createAcronym(short, long):
                 return ["short": short, "long": long]
+            case .getAcronyms:
+                return  [:]
         }
     }
 }
+
+
+enum AcronymIDRequest: RequestProtocol {
+    case getAcronym(acronymID: UUID)
+    case updateAcronym(short: String, long: String, acronymID: UUID)
+    case deleteAcronym(acronymID: UUID)
+    
+    var path: String {
+        switch self {
+            case let .getAcronym(acronymID):
+                return "/api/acronyms/\(acronymID)"
+            case let .updateAcronym(_, _, acronymID):
+                return "/api/acronyms/\(acronymID)"
+            case let .deleteAcronym(acronymID):
+                return "/api/acronyms/\(acronymID)"
+        }
+        
+    }
+    
+    var requestType: RequestType {
+        switch self {
+            case .getAcronym(_):
+                return .GET
+            case  .updateAcronym(_, _, _):
+                return .PUT
+            case  .deleteAcronym(_):
+                return .DELETE
+        }
+        
+    }
+    
+    var params: [String: Any] {
+        switch self {
+            case let .updateAcronym(short, long, _):
+                return ["short": short, "long": long]
+            default:
+                return  [:]
+        }
+    }
+    
+    var addAuthorizationToken: Bool {
+        false
+    }
+}
+

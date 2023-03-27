@@ -17,11 +17,19 @@ struct AcronymsView: View {
         NavigationStack {
             List {
                 ForEach(acronyms) { acronym in
-                    VStack {
-                        Text(acronym.short)
+                    NavigationLink(value: acronym) {
+                        HStack {
+                            Text(acronym.short)
+                            Spacer()
+                            Text(acronym.long)
+                        }
                     }
+                    
                 }
             }
+            .navigationDestination(for: Acronym.self, destination: { acronym in
+                AcronymDetail(acronym: acronym)
+            })
             .navigationTitle("Acronyms")
             .listStyle(.plain)
             .task {
@@ -39,15 +47,21 @@ struct AcronymsView: View {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $isSheetShowing) {
+            .sheet(isPresented: $isSheetShowing, onDismiss: {
+                Task {
+                    await fetchAcronyms()
+                }
+            }) {
                 CreateAcronymView()
             }
         }
     }
     
-    func fetchAcronyms() async  {
-        let req = AcronymsRequest.getAcronyms
-
+    private  func delete(indexSet: IndexSet) async {
+        
+    }
+    
+    private func fetchAcronyms() async  {
         do {
             let acronyms: [Acronym] = try await requestManager.perform(AcronymsRequest.getAcronyms)
             self.acronyms = acronyms
