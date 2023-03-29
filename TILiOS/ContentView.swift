@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @SceneStorage("selectedView") var selectedView: String?
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selectedView) {
            AcronymsView()
+                .tag(AcronymsView.tag)
                 .tabItem {
                     VStack {
                         Image(systemName: "abc")
@@ -19,12 +22,24 @@ struct ContentView: View {
                 }
             
             UsersView()
+                .tag(UsersView.tag)
                 .tabItem {
                     VStack {
-                       Image(systemName: "person.3")
+                       Image(systemName: "person.2")
                         Text("Users")
                     }
                 }
+            
+            CategoriesView()
+                .tag(CategoriesView.tag)
+                .tabItem {
+                    VStack {
+                        Image(systemName: "doc.plaintext")
+                        Text("Categories")
+                    }
+                }
+            
+           
         }
         
     }

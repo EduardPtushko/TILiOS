@@ -8,8 +8,55 @@
 import SwiftUI
 
 struct UsersView: View {
+    static let tag: String? = "Users"
+    @State private var users: [User] = []
+    private var requestManager = RequestManager()
+    @State private var hasError = false
+    @State private var isShowing = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                ForEach(users) { user in
+                    VStack{
+                        Text(user.name)
+                        NavigationLink {
+                            UserDetails()
+                        } label: {
+                            Text("Lets's see acronyms")
+                        }
+                        
+                    }
+                }
+            }
+            .toolbar {
+                Button {
+                    isShowing = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .fullScreenCover(isPresented: $isShowing, onDismiss: {
+                Task {
+                    await fetchUsers()
+                }
+            }) {
+                CreateUser()
+            }
+            .task {
+                await fetchUsers()
+            }
+        }
+    }
+    
+    private func fetchUsers() async {
+        do {
+            let users: [User] =  try await requestManager.perform(UsersRequest.getAllUser)
+            
+            self.users = users
+        } catch  {
+            hasError = true
+        }
     }
 }
 

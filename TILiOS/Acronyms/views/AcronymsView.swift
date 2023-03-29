@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AcronymsView: View {
+    static let tag: String? = "Acronyms"
     @State private var acronyms: [Acronym] = []
     @State private var isLoading = true
     private let requestManager = RequestManager()
@@ -17,19 +18,17 @@ struct AcronymsView: View {
         NavigationStack {
             List {
                 ForEach(acronyms) { acronym in
-                    NavigationLink(value: acronym) {
+                    NavigationLink {
+                        AcronymDetail(acronym: acronym)
+                    } label: {
                         HStack {
                             Text(acronym.short)
                             Spacer()
                             Text(acronym.long)
                         }
                     }
-                    
                 }
             }
-            .navigationDestination(for: Acronym.self, destination: { acronym in
-                AcronymDetail(acronym: acronym)
-            })
             .navigationTitle("Acronyms")
             .listStyle(.plain)
             .task {
@@ -47,7 +46,7 @@ struct AcronymsView: View {
                     Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $isSheetShowing, onDismiss: {
+            .fullScreenCover(isPresented: $isSheetShowing, onDismiss: {
                 Task {
                     await fetchAcronyms()
                 }
@@ -57,9 +56,6 @@ struct AcronymsView: View {
         }
     }
     
-    private  func delete(indexSet: IndexSet) async {
-        
-    }
     
     private func fetchAcronyms() async  {
         do {

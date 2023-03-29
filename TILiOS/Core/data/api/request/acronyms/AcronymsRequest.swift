@@ -9,7 +9,7 @@ import Foundation
 
 enum AcronymsRequest: RequestProtocol {
     case getAcronyms
-    case createAcronym(short: String, long: String)
+    case createAcronym(short: String, long: String,  userID: UUID)
     
     var path: String {
         "/api/acronyms"
@@ -19,7 +19,7 @@ enum AcronymsRequest: RequestProtocol {
         switch self {
             case .getAcronyms:
                 return  .GET
-            case .createAcronym(_, _):
+            case .createAcronym(_, _, _):
                 return  .POST
         }
     }
@@ -30,8 +30,8 @@ enum AcronymsRequest: RequestProtocol {
     
     var params: [String: Any] {
         switch self {
-            case let .createAcronym(short, long):
-                return ["short": short, "long": long]
+            case let .createAcronym(short, long, userID):
+                return ["short": short, "long": long,  "userId": userID]
             case .getAcronyms:
                 return  [:]
         }
@@ -46,11 +46,9 @@ enum AcronymIDRequest: RequestProtocol {
     
     var path: String {
         switch self {
-            case let .getAcronym(acronymID):
-                return "/api/acronyms/\(acronymID)"
-            case let .updateAcronym(_, _, acronymID):
-                return "/api/acronyms/\(acronymID)"
-            case let .deleteAcronym(acronymID):
+            case let .getAcronym(acronymID),
+                let .updateAcronym(_, _, acronymID),
+                let .deleteAcronym(acronymID):
                 return "/api/acronyms/\(acronymID)"
         }
         
