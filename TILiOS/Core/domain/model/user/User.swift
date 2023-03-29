@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct User: Codable, Identifiable {
+struct User: Codable {
     let id: UUID?
     let name: String
     let username: String
 }
+
+extension User: Identifiable, Hashable {}

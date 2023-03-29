@@ -10,8 +10,46 @@ import SwiftUI
 struct CategoriesView: View {
     static let tag: String? = "Categories"
     
+    let requestManager = RequestManager()
+    @State private var categories: [Category] = []
+    @State private var isSheetShowing = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                ForEach(categories) { category in
+                    Text(category.name)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isSheetShowing = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .fullScreenCover(isPresented: $isSheetShowing, onDismiss: {
+                Task {
+                    await fetchCategories()
+                }
+            }, content: {
+                CreateCategory()
+            })
+            .task {
+                await fetchCategories()
+        }
+        }
+    }
+    
+    private func fetchCategories() async  {
+        do {
+            let categories: [Category] = try await requestManager.perform(CategoriesRequest.getAllCategories)
+            self.categories = categories
+        } catch {
+            
+        }
     }
 }
 

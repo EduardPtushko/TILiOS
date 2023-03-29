@@ -9,11 +9,17 @@ import SwiftUI
 
 struct AcronymDetail: View {
     let acronym: Acronym
-    @State private var short: String = ""
-    @State private var long: String = ""
+    @State private var short: String
+    @State private var long: String
     @Environment(\.dismiss) private var dismiss
     private let requestManager = RequestManager()
     @State private var isAlertPresenting = false
+    
+    init(acronym: Acronym) {
+        self.acronym = acronym
+        _short = State(wrappedValue: acronym.short)
+        _long = State(wrappedValue: acronym.long)
+    }
     
     var body: some View {
         Form {
@@ -22,55 +28,47 @@ struct AcronymDetail: View {
                     .textInputAutocapitalization(.never)
                 
             } header: {
-                Text("Short form")
+                Text("Acronym")
+                    .textCase(.uppercase)
             }
             
             Section {
                 TextField("long", text: $long)
                     .textInputAutocapitalization(.never)
             } header: {
-                Text("Long form")
+                Text("Meaning")
+                    .textCase(.uppercase)
             }
-            HStack {
-                Button {
-                    Task {
-                        await updateAcronym()
-                    }
-                    dismiss()
-                } label: {
-                    Text("Update")
-                }
-                .frame(maxWidth: .infinity)
-                .disabled(short.isEmpty || long.isEmpty)
-                Spacer()
-                Button {
-                    isAlertPresenting = true
-                    //                    Task {
-                    //                        await deleteAcronym()
-                    //                    }
-                    //                    dismiss()
-                } label: {
-                    Text("Delete")
-                        .foregroundColor(.red)
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(BorderlessButtonStyle())
             
+            Section {
+                Text("")
+                    .textInputAutocapitalization(.never)
+            } header: {
+                Text("User")
+                    .textCase(.uppercase)
+            }
+            
+            Section {
+                Text("")
+                    .textInputAutocapitalization(.never)
+            } header: {
+                Text("Categories")
+                    .textCase(.uppercase)
+            }
+            
+//            Picker() {
+//
+//            }
         }
-        .confirmationDialog("Are you sure?",
-                            isPresented: $isAlertPresenting) {
-            Button("Delete this Acronym?", role: .destructive) {
-                Task {
-                    await deleteAcronym()
-                }
-                dismiss()
+        .toolbar {
+            Button {
+                
+            } label: {
+               Text("Edit")
             }
         }
-        .onAppear {
-            short = acronym.short
-            long = acronym.long
-        }
+ 
+        
     }
     
     func deleteAcronym() async  {
@@ -92,6 +90,8 @@ struct AcronymDetail: View {
 
 struct AcronymDetail_Previews: PreviewProvider {
     static var previews: some View {
-        AcronymDetail(acronym: Acronym.mockAcronyms[0])
+        NavigationStack {
+            AcronymDetail(acronym: Acronym.mockAcronyms[0])
+        }
     }
 }

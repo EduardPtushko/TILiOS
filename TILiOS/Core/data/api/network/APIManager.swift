@@ -26,6 +26,5 @@ class APIManager: APIManagerProtocol {
         }
         
         return data
-        
     }
 }

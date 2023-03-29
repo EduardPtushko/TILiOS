@@ -12,33 +12,71 @@ struct CreateUser: View {
     @State private var username: String = ""
     @Environment(\.dismiss) private var dismiss
     private let requestManager = RequestManager()
+    @FocusState var focus: Field?
+    
+    enum Field: Hashable {
+        case name
+        case username
+    }
     
     var body: some View {
-        Form {
-            Section {
-                TextField("name", text: $name)
-                    .textInputAutocapitalization(.never)
-                
-            } header: {
-                Text("Name")
-            }
-            Section {
-                TextField("username", text: $username)
-                    .textInputAutocapitalization(.never)
-            } header: {
-                Text("Username")
-            }
-            
-            Button {
-                Task {
-                    await createUser()
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("name", text: $name)
+                        .textInputAutocapitalization(.never)
+                        .focused($focus, equals: .name)
+                    
+                } header: {
+                    Text("Name")
                 }
-                dismiss()
-            } label: {
-                Text("Add User")
+                Section {
+                    TextField("username", text: $username)
+                        .textInputAutocapitalization(.never)
+                        .focused($focus, equals: .username)
+                } header: {
+                    Text("Username")
+                }
+                
+               
             }
-            .frame(maxWidth: .infinity)
-            .disabled(name.isEmpty || username.isEmpty)
+            .onSubmit {
+                if focus == .name {
+                    focus = .username
+                } else {
+                    focus = nil
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    
+                        Text("Create User")
+                            .font(.title2)
+                    
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+                        
+                        Task {
+                            await createUser()
+                        }
+                        dismiss()
+                    } label: {
+                        Text("Save")
+                    }
+                }
+            }
+            .onAppear {
+                focus = .name
+            }
         }
     }
     

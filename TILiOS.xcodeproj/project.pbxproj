@@ -41,6 +41,8 @@
 		23E143D329D0724E00F134AD /* AcronymsMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 23E143D229D0724E00F134AD /* AcronymsMock.json */; };
 		23E143D529D072C700F134AD /* RequestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E143D429D072C700F134AD /* RequestManagerTests.swift */; };
 		23E143D729D0AE5000F134AD /* AcronymDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E143D629D0AE5000F134AD /* AcronymDetail.swift */; };
+		23E8086729D49C6300DBEDEC /* CreateCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8086629D49C6300DBEDEC /* CreateCategory.swift */; };
+		23E8086A29D49C8D00DBEDEC /* CategoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E8086929D49C8D00DBEDEC /* CategoriesRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,8 @@
 		23E143D229D0724E00F134AD /* AcronymsMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AcronymsMock.json; sourceTree = "<group>"; };
 		23E143D429D072C700F134AD /* RequestManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerTests.swift; sourceTree = "<group>"; };
 		23E143D629D0AE5000F134AD /* AcronymDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcronymDetail.swift; sourceTree = "<group>"; };
+		23E8086629D49C6300DBEDEC /* CreateCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategory.swift; sourceTree = "<group>"; };
+		23E8086929D49C8D00DBEDEC /* CategoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				23970E1629D21C6500FF65B0 /* CategoriesView.swift */,
+				23E8086629D49C6300DBEDEC /* CreateCategory.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -265,8 +270,8 @@
 				23E143B529D05A9700F134AD /* Users */,
 				23E143AC29D04CFB00F134AD /* Acronyms */,
 				23E1439029D04CE300F134AD /* Core */,
-				23E1438229D04CA800F134AD /* TILiOSApp.swift */,
 				23E1438429D04CA800F134AD /* ContentView.swift */,
+				23E1438229D04CA800F134AD /* TILiOSApp.swift */,
 				23E1438629D04CAA00F134AD /* Assets.xcassets */,
 				23E1438829D04CAA00F134AD /* Preview Content */,
 			);
@@ -322,6 +327,7 @@
 		23E1439629D04CE300F134AD /* request */ = {
 			isa = PBXGroup;
 			children = (
+				23E8086829D49C7400DBEDEC /* categories */,
 				23E1439729D04CE300F134AD /* RequestProtocol.swift */,
 				2326462329D1B8BF006FF18E /* users */,
 				23E1439829D04CE300F134AD /* acronyms */,
@@ -457,6 +463,14 @@
 				23E143BC29D061F800F134AD /* helper */,
 			);
 			path = api;
+			sourceTree = "<group>";
+		};
+		23E8086829D49C7400DBEDEC /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				23E8086929D49C8D00DBEDEC /* CategoriesRequest.swift */,
+			);
+			path = categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,7 +635,9 @@
 				23E1439A29D04CE300F134AD /* RequestManager.swift in Sources */,
 				23E1438529D04CA800F134AD /* ContentView.swift in Sources */,
 				23E143B829D05AB000F134AD /* UsersView.swift in Sources */,
+				23E8086A29D49C8D00DBEDEC /* CategoriesRequest.swift in Sources */,
 				23970E1D29D3447100FF65B0 /* Persistence.swift in Sources */,
+				23E8086729D49C6300DBEDEC /* CreateCategory.swift in Sources */,
 				23E143BA29D05B4D00F134AD /* CreateAcronymView.swift in Sources */,
 				23970E1B29D3444600FF65B0 /* Main.xcdatamodeld in Sources */,
 				2326465629D1E625006FF18E /* UserDetails.swift in Sources */,

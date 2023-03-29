@@ -101,10 +101,11 @@ public enum NetworkError: LocalizedError {
 
 
 
-
-
-
-
+enum ResourceRequestError: Error {
+  case noData
+  case decodingError
+  case encodingError
+}
 
 
 

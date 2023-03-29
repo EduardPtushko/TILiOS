@@ -18,14 +18,8 @@ struct UsersView: View {
         NavigationStack {
             List {
                 ForEach(users) { user in
-                    VStack{
+                    VStack(alignment: .leading){
                         Text(user.name)
-                        NavigationLink {
-                            UserDetails()
-                        } label: {
-                            Text("Lets's see acronyms")
-                        }
-                        
                     }
                 }
             }

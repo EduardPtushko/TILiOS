@@ -12,3 +12,5 @@ struct Category: Codable {
     let id: UUID?
     let name: String
 }
+
+extension Category: Identifiable {}
