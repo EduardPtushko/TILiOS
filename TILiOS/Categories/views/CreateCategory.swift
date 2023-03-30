@@ -43,7 +43,7 @@ struct CreateCategory: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || name.count >= 2 else {
+                        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && name.count >= 2 else {
                             return
                         }
                         Task {
@@ -63,7 +63,7 @@ struct CreateCategory: View {
     
     private func createCategory() async  {
         do {
-            let category: Category = try await requestManager.perform(CategoriesRequest.createCategory(name: name))
+            let _: Category = try await requestManager.perform(CategoriesRequest.createCategory(name: name))
         } catch {
             
         }

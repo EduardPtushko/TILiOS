@@ -37,8 +37,6 @@ struct CreateUser: View {
                 } header: {
                     Text("Username")
                 }
-                
-               
             }
             .onSubmit {
                 if focus == .name {
@@ -63,7 +61,7 @@ struct CreateUser: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+                        guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
                         
                         Task {
                             await createUser()

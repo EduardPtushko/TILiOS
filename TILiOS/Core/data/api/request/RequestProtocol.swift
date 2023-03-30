@@ -65,6 +65,8 @@ extension RequestProtocol {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if !params.isEmpty {
+            let checker = JSONSerialization.isValidJSONObject(params)
+            dump(checker)
             urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params)
         }
         

@@ -14,11 +14,13 @@ struct AcronymDetail: View {
     @Environment(\.dismiss) private var dismiss
     private let requestManager = RequestManager()
     @State private var isAlertPresenting = false
+    @State private var user: User? = nil
     
     init(acronym: Acronym) {
         self.acronym = acronym
         _short = State(wrappedValue: acronym.short)
         _long = State(wrappedValue: acronym.long)
+        
     }
     
     var body: some View {
@@ -41,16 +43,17 @@ struct AcronymDetail: View {
             }
             
             Section {
-                Text("")
-                    .textInputAutocapitalization(.never)
+                Text(user?.username ?? "")
+                   
             } header: {
                 Text("User")
                     .textCase(.uppercase)
             }
             
             Section {
-                Text("")
-                    .textInputAutocapitalization(.never)
+                List {
+                    
+                }
             } header: {
                 Text("Categories")
                     .textCase(.uppercase)
@@ -67,8 +70,15 @@ struct AcronymDetail: View {
                Text("Edit")
             }
         }
- 
-        
+        .task {
+            do {
+                let user: User = try await requestManager.perform(UsersRequest.getUser(userID: acronym.user.id))
+                self.user = user
+            } catch {
+                
+            }
+            
+        }
     }
     
     func deleteAcronym() async  {

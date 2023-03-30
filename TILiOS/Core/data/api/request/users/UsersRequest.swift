@@ -10,13 +10,18 @@ import Foundation
 enum UsersRequest: RequestProtocol {
     case getAllUser
     case createUser(name: String, username: String)
+    case deleteUser(userID: UUID)
+    case getUser(userID: UUID)
     
     var requestType: RequestType {
         switch self {
-            case .getAllUser:
+            case .getAllUser,
+                    .getUser(_):
                 return .GET
             case .createUser(_,_):
                 return .POST
+            case .deleteUser(_):
+                  return .DELETE
         }
     }
     
@@ -25,6 +30,9 @@ enum UsersRequest: RequestProtocol {
         switch self {
             case .getAllUser, .createUser(_,_):
                 return "/api/users"
+            case .deleteUser(userID: let userID),
+                    .getUser(userID: let userID):
+                return "/api/users/\(userID)"
         }
     }
     

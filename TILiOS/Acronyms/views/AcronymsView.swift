@@ -28,6 +28,19 @@ struct AcronymsView: View {
                         }
                     }
                 }
+                .onDelete { indexSet in
+                    Task {
+                        try await withThrowingTaskGroup(of: Acronym.self, body: { group in
+                            
+                            for index in indexSet {
+                                guard let id = acronyms[index].id else { return }
+                                group.addTask {
+                                    try await requestManager.perform(AcronymIDRequest.deleteAcronym(acronymID: id))
+                                }
+                            }
+                        })
+                    }
+                }
             }
             .navigationTitle("Acronyms")
             .listStyle(.plain)
@@ -41,9 +54,11 @@ struct AcronymsView: View {
             }
             .toolbar {
                 Button {
-                    isSheetShowing = true
+                    withAnimation {
+                        isSheetShowing = true
+                    }
                 } label: {
-                    Image(systemName: "plus")
+                    Label("Add Acronym", systemImage: "plus")
                 }
             }
             .fullScreenCover(isPresented: $isSheetShowing, onDismiss: {

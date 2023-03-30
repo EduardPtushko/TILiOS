@@ -10,9 +10,18 @@ import Foundation
 enum CategoriesRequest: RequestProtocol {
     case getAllCategories
     case createCategory(name: String)
+    case deleteCategory(categoryID: UUID)
     
     var path: String {
-        "/api/categories"
+        switch self {
+            case .getAllCategories:
+                return  "/api/categories"
+            case .createCategory(_):
+                return  "/api/categories"
+            case  let .deleteCategory(categoryID):
+                return "/api/categories/\(categoryID)"
+        }
+    
     }
     
     var requestType: RequestType {
@@ -21,6 +30,8 @@ enum CategoriesRequest: RequestProtocol {
                 return  .GET
             case .createCategory:
                 return    .POST
+            case .deleteCategory(_):
+                return .DELETE
         }
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateAcronymView: View {
     @State private var short: String = ""
     @State private var long: String = ""
-    @State private var selectedUsername: String = ""
+    @State private var selectedUsername: String? = nil
     @State private var usernames: [String] = []
     @Environment(\.dismiss) private var dismiss
     private let requestManager = RequestManager()
@@ -48,8 +48,9 @@ struct CreateAcronymView: View {
 
                 
                 Picker("User", selection: $selectedUsername) {
+                    Text("No User").tag(nil as String?)
                     ForEach(usernames, id: \.self) { username in
-                        Text(username)
+                        Text(username).tag(username as String?)
                     }
                 }
                 .pickerStyle(.menu)
@@ -75,7 +76,7 @@ struct CreateAcronymView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        guard !short.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !long.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+                        guard !short.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !long.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && selectedUsername != nil else { return }
                         Task {
                             await createAcronym()
                         }
@@ -96,12 +97,12 @@ struct CreateAcronymView: View {
     
   private  func createAcronym() async  {
         do {
-            guard  let selectedUserID = self.users.first(where: { $0.username == selectedUsername})?.id else {
+            guard let selectedUserID = self.users.first(where: { $0.username == selectedUsername})?.id else {
                 return
             }
-           
             
             let acronym: Acronym = try await requestManager.perform(AcronymsRequest.createAcronym(short: short, long: long, userID: selectedUserID))
+            
         } catch {
             
         }
@@ -112,6 +113,7 @@ struct CreateAcronymView: View {
             let users: [User] = try await requestManager.perform(UsersRequest.getAllUser)
             self.users = users
             self.usernames = users.map { $0.username}
+            
             
         } catch {
             

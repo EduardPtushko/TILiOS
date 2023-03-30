@@ -12,7 +12,7 @@ struct UsersView: View {
     @State private var users: [User] = []
     private var requestManager = RequestManager()
     @State private var hasError = false
-    @State private var isShowing = false
+    @State private var isSheetShowing = false
     
     var body: some View {
         NavigationStack {
@@ -22,16 +22,33 @@ struct UsersView: View {
                         Text(user.name)
                     }
                 }
+                .onDelete { indexSet in
+                    Task {
+                        try await withThrowingTaskGroup(of: User.self, body: { group in
+                            for index in indexSet {
+                                guard let userID = users[index].id else {
+                                    fatalError("Out of range")
+                                }
+                                group.addTask {
+                                    try await requestManager.perform(UsersRequest.deleteUser(userID: userID))
+                                }
+                            }
+                        })
+                    }
+                }
             }
             .toolbar {
                 Button {
-                    isShowing = true
+                    withAnimation {
+                        isSheetShowing = true
+                    }
                 } label: {
-                    Image(systemName: "plus")
+                    Label("Add Category",systemImage: "plus")
                 }
             }
-            .fullScreenCover(isPresented: $isShowing, onDismiss: {
+            .fullScreenCover(isPresented: $isSheetShowing, onDismiss: {
                 Task {
+                    
                     await fetchUsers()
                 }
             }) {
@@ -46,7 +63,6 @@ struct UsersView: View {
     private func fetchUsers() async {
         do {
             let users: [User] =  try await requestManager.perform(UsersRequest.getAllUser)
-            
             self.users = users
         } catch  {
             hasError = true

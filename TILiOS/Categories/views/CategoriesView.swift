@@ -20,13 +20,29 @@ struct CategoriesView: View {
                 ForEach(categories) { category in
                     Text(category.name)
                 }
+                .onDelete { indexSet in
+                    Task {
+                        try await withThrowingTaskGroup(of: Category.self, body: { group in
+                            for index in indexSet {
+                                guard let categoryID = categories[index].id else {
+                                    fatalError("Out of range")
+                                }
+                                group.addTask {
+                                    try await requestManager.perform(CategoriesRequest.deleteCategory(categoryID: categoryID))
+                                }
+                            }
+                        })
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isSheetShowing = true
+                        withAnimation {
+                            isSheetShowing = true
+                        }
                     } label: {
-                        Image(systemName: "plus")
+                        Label("Add Category",systemImage: "plus")
                     }
                 }
             }

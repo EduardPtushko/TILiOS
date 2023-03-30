@@ -31,7 +31,7 @@ enum AcronymsRequest: RequestProtocol {
     var params: [String: Any] {
         switch self {
             case let .createAcronym(short, long, userID):
-                return ["short": short, "long": long,  "userId": userID]
+                return ["short": short, "long": long,  "userID": userID.uuidString]
             case .getAcronyms:
                 return  [:]
         }
@@ -40,6 +40,7 @@ enum AcronymsRequest: RequestProtocol {
 
 
 enum AcronymIDRequest: RequestProtocol {
+    
     case getAcronym(acronymID: UUID)
     case updateAcronym(short: String, long: String, acronymID: UUID)
     case deleteAcronym(acronymID: UUID)

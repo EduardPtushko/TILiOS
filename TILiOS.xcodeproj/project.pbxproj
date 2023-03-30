@@ -327,8 +327,8 @@
 		23E1439629D04CE300F134AD /* request */ = {
 			isa = PBXGroup;
 			children = (
-				23E8086829D49C7400DBEDEC /* categories */,
 				23E1439729D04CE300F134AD /* RequestProtocol.swift */,
+				23E8086829D49C7400DBEDEC /* categories */,
 				2326462329D1B8BF006FF18E /* users */,
 				23E1439829D04CE300F134AD /* acronyms */,
 			);
