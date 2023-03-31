@@ -13,4 +13,4 @@ struct Category: Codable {
     let name: String
 }
 
-extension Category: Identifiable {}
+extension Category: Identifiable, Hashable {}

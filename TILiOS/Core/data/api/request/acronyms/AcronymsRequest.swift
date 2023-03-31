@@ -40,10 +40,12 @@ enum AcronymsRequest: RequestProtocol {
 
 
 enum AcronymIDRequest: RequestProtocol {
-    
     case getAcronym(acronymID: UUID)
     case updateAcronym(short: String, long: String, acronymID: UUID)
     case deleteAcronym(acronymID: UUID)
+    case getAcronymCategories(acronymID: UUID)
+    case addAcronymToCategory(acronymID: UUID, categoryID: UUID)
+    case removeAcronymFromCategory(acronymID: UUID, categoryID: UUID)
     
     var path: String {
         switch self {
@@ -51,17 +53,25 @@ enum AcronymIDRequest: RequestProtocol {
                 let .updateAcronym(_, _, acronymID),
                 let .deleteAcronym(acronymID):
                 return "/api/acronyms/\(acronymID)"
+            case .getAcronymCategories(acronymID: let acronymID):
+                return "/api/acronyms/\(acronymID)/categories"
+            case .addAcronymToCategory(acronymID: let acronymID, categoryID: let categoryID),
+                .removeAcronymFromCategory(acronymID: let acronymID, categoryID: let categoryID):
+                return "/api/acronyms/\(acronymID)/categories/\(categoryID)"
         }
         
     }
     
     var requestType: RequestType {
         switch self {
-            case .getAcronym(_):
+            case .getAcronym(_),
+                .getAcronymCategories(_),
+                .addAcronymToCategory(_,_):
                 return .GET
             case  .updateAcronym(_, _, _):
                 return .PUT
-            case  .deleteAcronym(_):
+            case  .deleteAcronym(_),
+                    .removeAcronymFromCategory(_,_):
                 return .DELETE
         }
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231A523E29D61310002F407C /* EditAcronymView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231A523D29D61310002F407C /* EditAcronymView.swift */; };
 		2326461F29D19B8E006FF18E /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326461E29D19B8E006FF18E /* DataParser.swift */; };
 		2326462229D1B879006FF18E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326462129D1B879006FF18E /* User.swift */; };
 		2326462529D1B8CE006FF18E /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326462429D1B8CE006FF18E /* UsersRequest.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		231A523D29D61310002F407C /* EditAcronymView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAcronymView.swift; sourceTree = "<group>"; };
 		2326461E29D19B8E006FF18E /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		2326462129D1B879006FF18E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2326462429D1B8CE006FF18E /* UsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRequest.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				23E143B929D05B4D00F134AD /* CreateAcronymView.swift */,
 				23E143D629D0AE5000F134AD /* AcronymDetail.swift */,
 				23E143AD29D04D0E00F134AD /* AcronymsView.swift */,
+				231A523D29D61310002F407C /* EditAcronymView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				2326465429D1D30B006FF18E /* CreateUser.swift in Sources */,
 				23E1439C29D04CE300F134AD /* RequestProtocol.swift in Sources */,
 				23E143D729D0AE5000F134AD /* AcronymDetail.swift in Sources */,
+				231A523E29D61310002F407C /* EditAcronymView.swift in Sources */,
 				23970E2029D3470000FF65B0 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
